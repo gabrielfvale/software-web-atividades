@@ -1,0 +1,141 @@
+*,
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+a,
+a::before,
+a::after {
+  text-decoration: none;
+  color: white;
+}
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+}
+
+nav {
+  overflow: hidden;
+  background-color: black;
+}
+
+.dropdown {
+  list-style-type: none;
+  float: left;
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.dropdown:hover {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 99;
+  transform: translate(-1rem, 1rem);
+  background-color: #f9f9f9;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  display: block;
+  text-align: left;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.conteudo {
+  padding: 0.5rem;
+  margin-top: 1rem;
+}
+
+.banner {
+  width: 50%;
+  height: auto;
+
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 1rem;
+  box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.75);
+}
+
+.centralizado {
+  margin-top: 2rem;
+
+  display: flex;
+  justify-content: space-between;
+  gap: 8rem;
+}
+
+.secoes {
+  background-color: #506380;
+  color: white;
+  padding: 1rem;
+  border-radius: 1rem;
+  text-align: center;
+}
+
+.botao {
+  color: black;
+  background-color: white;
+
+  width: 5rem;
+  padding: 0.5rem;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  border-radius: 0.25rem;
+}
+
+.botao:hover {
+  background-color: orange;
+}
+
+.texto {
+  padding: 1rem;
+  margin-bottom: 7rem;
+}
+
+.texto p {
+  margin: 1rem 0 1rem 0;
+}
+
+.titulo {
+  text-decoration: underline;
+  text-decoration-color: orange;
+}
+
+#coordenacao {
+  float: right;
+  text-align: right;
+}
+
+.fixed-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+
+  padding: 1rem;
+
+  color: white;
+  background-color: black;
+}
