@@ -1,24 +1,34 @@
-import logo from "./logo.svg";
-import "./App.css";
+import { useState } from "react";
+import { ThemeProvider } from "styled-components";
+import Navbar from "./components/Navbar";
+import Home from "./pages/Home";
+import GameMode from "./pages/GameMode";
+
+const theme = {
+  main: "#2A9D8F",
+};
 
 function App() {
+  const [route, setRoute] = useState(0);
+
+  const routes = [
+    {
+      name: "Home",
+      component: <Home />,
+    },
+    {
+      name: "GameMode",
+      component: <GameMode />,
+    },
+  ];
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          laura linda princesa
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div>
+        <Navbar />
+        {routes[route].component}
+      </div>
+    </ThemeProvider>
   );
 }
 
