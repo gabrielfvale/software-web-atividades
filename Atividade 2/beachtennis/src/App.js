@@ -5,7 +5,8 @@ import Home from "./pages/Home";
 import GameMode from "./pages/GameMode";
 
 const theme = {
-  main: "#2A9D8F",
+  primary: "#2A9D8F",
+  secondary: "#ef476f",
 };
 
 function App() {

@@ -1,16 +1,15 @@
-import { Container, InputContainer } from "./styles";
-import { FaStar } from "react-icons/fa";
+import { Container, InputContainer, StarButton } from "./styles";
 
 import Input from "../Input";
 
-const InputGroup = ({ label }) => {
+const InputGroup = ({ label, active, onStarClick }) => {
   return (
     <Container>
       <span>{label}</span>
       <InputContainer>
         <Input />
         <Input />
-        <FaStar size="3rem" color="white" />
+        <StarButton active={active} onClick={onStarClick} />
       </InputContainer>
     </Container>
   );
