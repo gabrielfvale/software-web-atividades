@@ -2,32 +2,32 @@ import PageContainer from "../../components/PageContainer";
 import InputGroup from "../../components/InputGroup";
 import MainContainer from "../../components/MainContainer";
 import Button from "../../components/Button";
-import { useState, useEffect } from "react";
 import Checkbox from "../../components/Checkbox";
 import MatchSets from "../../components/MatchSets";
 
-const Home = () => {
-  const [activeTeam, setActiveTeam] = useState("1");
-  const [matchSets, setMatchSets] = useState("1");
+import { useMatch } from "../../providers/MatchProvider";
 
-  useEffect(() => {
-    console.log(activeTeam);
-  }, [activeTeam]);
+const Home = () => {
+  const { getActiveTeam, setActiveTeam, getMatchSets, setMatchSets } =
+    useMatch();
 
   return (
     <PageContainer>
       <MainContainer>
         <InputGroup
           label="Dupla 1"
-          active={activeTeam === "1"}
+          active={getActiveTeam() === "1"}
           onStarClick={() => setActiveTeam("1")}
         />
         <InputGroup
           label="Dupla 2"
-          active={activeTeam === "2"}
+          active={getActiveTeam() === "2"}
           onStarClick={() => setActiveTeam("2")}
         />
-        <MatchSets activeSet={matchSets} onChangeMatchSets={setMatchSets} />
+        <MatchSets
+          activeSet={getMatchSets()}
+          onChangeMatchSets={setMatchSets}
+        />
         <Checkbox label="SuperTieBreak" />
 
         <Button text="Iniciar" onClick={() => alert("laura linda princesa")} />
