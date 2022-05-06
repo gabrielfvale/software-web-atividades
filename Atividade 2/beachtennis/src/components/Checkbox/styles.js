@@ -21,7 +21,7 @@ export const CheckboxContainer = styled.label`
     width: 0;
   }
 
-  .checkmark {
+  span {
     position: absolute;
     top: 0;
     left: 0;
@@ -30,21 +30,21 @@ export const CheckboxContainer = styled.label`
     background-color: white;
   }
 
-  input:checked ~ .checkmark {
+  input:checked ~ span {
     background-color: ${({ theme }) => theme.secondary};
   }
 
-  .checkmark:after {
+  span:after {
     content: "";
     position: absolute;
     display: none;
   }
 
-  input:checked ~ .checkmark:after {
+  input:checked ~ span:after {
     display: block;
   }
 
-  .checkmark:after {
+  span:after {
     left: 9px;
     top: 5px;
     width: 5px;

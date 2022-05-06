@@ -1,7 +1,7 @@
 import { StyledInput } from "./styles";
 
-const Input = () => {
-  return <StyledInput></StyledInput>;
+const Input = (props) => {
+  return <StyledInput {...props}></StyledInput>;
 };
 
 export default Input;

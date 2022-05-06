@@ -1,11 +1,11 @@
 import { CheckboxContainer } from "./styles";
 
-const Checkbox = ({ label, checked, onClick }) => {
+const Checkbox = ({ label, checked, onChange }) => {
   return (
     <CheckboxContainer>
       {label}
-      <input type="checkbox" onClick={onClick} checked={checked} />
-      <span class="checkmark" />
+      <input type="checkbox" onChange={onChange} checked={checked} />
+      <span />
     </CheckboxContainer>
   );
 };
