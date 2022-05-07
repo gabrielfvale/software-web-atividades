@@ -4,14 +4,11 @@ import PageContainer from "components/PageContainer";
 import { useMatch } from "providers/MatchProvider";
 
 const GameMode = () => {
-  const { getMatchSets, getSuperTieBreak } = useMatch();
+  const { matchSets, superTieBreak } = useMatch();
 
   return (
     <PageContainer>
-      <ControlPanel
-        matchSets={getMatchSets()}
-        superTieBreak={getSuperTieBreak()}
-      />
+      <ControlPanel matchSets={matchSets} superTieBreak={superTieBreak} />
     </PageContainer>
   );
 };

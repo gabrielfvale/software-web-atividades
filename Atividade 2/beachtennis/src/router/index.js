@@ -3,7 +3,7 @@ import GameMode from "../pages/GameMode";
 
 import { useMatch } from "../providers/MatchProvider";
 const Router = () => {
-  const { getRoute } = useMatch();
+  const { route } = useMatch();
 
   const routes = [
     {
@@ -16,7 +16,7 @@ const Router = () => {
     },
   ];
 
-  return routes[getRoute()].component;
+  return routes[route].component;
 };
 
 export default Router;
