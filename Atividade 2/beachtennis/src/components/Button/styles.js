@@ -12,7 +12,7 @@ export const StyledButton = styled.button`
   font-weight: bold;
 
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.2s ease-in-out;
 
   :hover {
     box-shadow: 2px 4px 2px 1px rgba(0, 0, 0, 0.1);

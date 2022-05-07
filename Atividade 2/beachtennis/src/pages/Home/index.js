@@ -1,13 +1,14 @@
 import { useState } from "react";
 
-import PageContainer from "../../components/PageContainer";
-import InputGroup from "../../components/InputGroup";
-import MainContainer from "../../components/MainContainer";
-import Button from "../../components/Button";
-import Checkbox from "../../components/Checkbox";
-import MatchSets from "../../components/MatchSets";
+import PageContainer from "components/PageContainer";
+import InputGroup from "components/InputGroup";
+import MainContainer from "components/MainContainer";
+import Button from "components/Button";
+import Checkbox from "components/Checkbox";
+import MatchSets from "components/MatchSets";
+import Textarea from "components/Textarea";
 
-import { useMatch } from "../../providers/MatchProvider";
+import { useMatch } from "providers/MatchProvider";
 
 const Home = () => {
   const { setGame, setRoute } = useMatch();
@@ -38,6 +39,7 @@ const Home = () => {
   return (
     <PageContainer>
       <MainContainer>
+        <Textarea label="Descrição" />
         <InputGroup
           label="Dupla 1"
           active={activeTeam === "1"}

@@ -28,6 +28,7 @@ export const CheckboxContainer = styled.label`
     height: 25px;
     width: 25px;
     background-color: white;
+    transition: all 0.2s ease-in-out;
   }
 
   input:checked ~ span {

@@ -1,8 +1,5 @@
-import { useState } from "react";
 import { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import GameMode from "./pages/GameMode";
 
 import { MatchProvider } from "./providers/MatchProvider";
 
