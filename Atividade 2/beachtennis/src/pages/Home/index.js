@@ -6,13 +6,14 @@ import MainContainer from "components/MainContainer";
 import Button from "components/Button";
 import Checkbox from "components/Checkbox";
 import MatchSets from "components/MatchSets";
-import Textarea from "components/Textarea";
+import Input from "components/Input";
 
 import { useMatch } from "providers/MatchProvider";
 
 const Home = () => {
   const { setGame, setRoute } = useMatch();
 
+  const [description, setDescription] = useState("");
   const [activeTeam, setActiveTeam] = useState("1");
   const [matchSets, setMatchSets] = useState("1");
   const [firstTeam, setFirstTeam] = useState(["", ""]);
@@ -39,7 +40,11 @@ const Home = () => {
   return (
     <PageContainer>
       <MainContainer>
-        <Textarea label="Descrição" />
+        <Input
+          label="Descrição"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+        />
         <InputGroup
           label="Dupla 1"
           active={activeTeam === "1"}

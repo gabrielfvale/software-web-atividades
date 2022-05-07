@@ -14,7 +14,7 @@ export const InputContainer = styled.div`
 `;
 
 export const StarButton = styled(FaStar).attrs({
-  size: "3rem",
+  size: "1rem",
 })`
   color: ${({ active, theme }) => (active ? theme.secondary : "white")};
   cursor: pointer;

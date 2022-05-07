@@ -7,6 +7,7 @@ const InputGroup = ({ label, team, active, onChange, onStarClick }) => {
 
   return (
     <Container>
+      <StarButton active={active} onClick={onStarClick} />
       <span>{label}</span>
       <InputContainer>
         <Input
@@ -17,7 +18,6 @@ const InputGroup = ({ label, team, active, onChange, onStarClick }) => {
           value={secondPlayer}
           onChange={(e) => onChange(1, e.target.value)}
         />
-        <StarButton active={active} onClick={onStarClick} />
       </InputContainer>
     </Container>
   );
