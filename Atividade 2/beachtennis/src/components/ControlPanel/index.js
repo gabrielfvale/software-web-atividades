@@ -1,33 +1,13 @@
 import MainContainer from "../MainContainer";
 import PanelButton from "../PanelButton";
-import { FaPlus, FaRedo, FaArrowLeft } from "react-icons/fa";
 import { External, ButtonContainer, TextContainer } from "./styles";
-const ControlPanel = ({ matchSets, superTieBreak }) => {
-  const controlButtons = [
-    {
-      icon: FaPlus,
-      onClick: () => {},
-    },
-    {
-      icon: FaPlus,
-      onClick: () => {},
-    },
-    {
-      icon: FaArrowLeft,
-      onClick: () => {},
-    },
-    {
-      icon: FaRedo,
-      onClick: () => {},
-    },
-  ];
-
+const ControlPanel = ({ controlButtons, matchSets, superTieBreak }) => {
   return (
     <MainContainer>
       <External>
         <ButtonContainer>
-          {controlButtons.map((button) => (
-            <PanelButton {...button} />
+          {controlButtons.map((button, index) => (
+            <PanelButton key={index} {...button} />
           ))}
         </ButtonContainer>
         <TextContainer>

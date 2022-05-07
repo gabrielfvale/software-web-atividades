@@ -13,13 +13,15 @@ const MatchProvider = ({ children }) => {
   const [superTieBreak, setSuperTieBreak] = useState(false);
 
   const initialGameState = {
-    gameStarted: false,
+    gameActive: false,
     timer: 0,
-    activeTeam: 0,
-    team1: 0,
-    team2: 0,
-    games: [{ team1: 0, team2: 0 }],
-    sets: [{ team1: 0, team2: 0 }],
+    activeTeam,
+    team1_Points: 0,
+    team2_Points: 0,
+    team1_Won: 0,
+    team2_Won: 0,
+    games: [],
+    sets: [],
   };
 
   const [gameState, setGameState] = useState(initialGameState);
@@ -37,25 +39,126 @@ const MatchProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      if (gameState.gameStarted) {
-        setGameState((prev) => ({
-          ...prev,
-          timer: prev.timer + 1,
-        }));
-      }
-    }, 1000);
+    const interval = gameState.gameActive
+      ? setInterval(() => {
+          setGameState((prev) => ({
+            ...prev,
+            timer: prev.timer + 1,
+          }));
+        }, 1000)
+      : null;
     return () => clearInterval(interval);
-  }, []);
+  }, [gameState.gameActive]);
 
   const undoChange = () => setGameState(prevGameState);
 
   const resetGame = () => {
-    setGameState(initialGameState);
-    setPrevGameState(initialGameState);
+    setGameState({ ...initialGameState });
+    setPrevGameState({ ...initialGameState });
   };
 
-  const addPoint = (team) => {};
+  // In production apps, it's better to use lodash
+  const deepCopy = (obj) => JSON.parse(JSON.stringify(obj));
+
+  const addPoint = (team) => {
+    console.log("add point called");
+
+    if (
+      (matchSets === "1" && gameState.sets.length === 1) ||
+      (matchSets === "3" && gameState.sets.length === 3)
+    ) {
+      console.log("Game already won");
+      return;
+    }
+
+    // Get team and adversary team keys
+    const teamKey = team === 0 ? "team1" : "team2";
+    const advTeamKey = teamKey === "team1" ? "team2" : "team1";
+
+    // Set previous game state
+    setPrevGameState({ ...gameState });
+    const newGameState = deepCopy(gameState);
+
+    // Start game if not started
+    if (!newGameState.gameActive) newGameState.gameActive = true;
+
+    // Get games won
+    const teamGamesWon = teamKey + "_Won";
+    const advTeamGamesWon = advTeamKey + "_Won";
+
+    const teamPoints = teamKey + "_Points";
+    const advTeamPoints = advTeamKey + "_Points";
+
+    const toogleActiveTeam = () =>
+      (newGameState.activeTeam = newGameState.activeTeam === "1" ? "2" : "1");
+
+    const addSet = () => {
+      newGameState[teamGamesWon] = 0;
+      newGameState[advTeamGamesWon] = 0;
+      newGameState.sets.push({
+        team1: newGameState.team1_Won,
+        team2: newGameState.team2_Won,
+      });
+      console.log({ sets: newGameState.sets });
+    };
+
+    const isInTieBreak =
+      newGameState[teamGamesWon] === 6 && newGameState[advTeamGamesWon] === 6;
+    const isInSuperTieBreak = superTieBreak && newGameState.sets.length === 2;
+
+    console.log({ isInTieBreak, isInSuperTieBreak });
+
+    if (!(isInTieBreak || isInSuperTieBreak)) {
+      // Normal game logic
+      // If team points is less than 3 (40), add point.
+      // Otherwise, win game.
+      if (newGameState[teamPoints] < 3) {
+        newGameState[teamPoints] += 1;
+      } else {
+        // Increment won games and toggle active team
+        newGameState[teamGamesWon] += 1;
+        toogleActiveTeam();
+        // Reset points
+        newGameState[teamPoints] = 0;
+        newGameState[advTeamPoints] = 0;
+        // Check if won a set
+        if (
+          newGameState[teamGamesWon] >= 6 && // won at least 6 games
+          newGameState[teamGamesWon] - newGameState[advTeamGamesWon] >= 2 // games diff at least 2
+        ) {
+          addSet();
+        }
+      }
+    } else {
+      // Tiebreak game logic
+      // Tiebreak: 7 points, STB: 10 points
+      const maxPoints = isInTieBreak ? 7 : 10;
+      newGameState[teamPoints] += 1;
+      // Check if won tiebreak
+      if (
+        newGameState[teamPoints] >= maxPoints &&
+        newGameState[teamPoints] - newGameState[advTeamPoints] >= 2
+      ) {
+        // Increment won games and toggle active team
+        newGameState[teamGamesWon] += 1;
+        toogleActiveTeam();
+        // Reset points
+        newGameState[teamPoints] = 0;
+        newGameState[advTeamPoints] = 0;
+        addSet();
+      }
+    }
+
+    if (
+      (matchSets === "1" && newGameState.sets.length === 1) ||
+      (matchSets === "3" && newGameState.sets.length === 3)
+    ) {
+      console.log("Game won");
+      newGameState.gameActive = false;
+    }
+
+    setGameState(deepCopy(newGameState));
+  };
 
   const values = {
     route,
@@ -79,6 +182,7 @@ const MatchProvider = ({ children }) => {
 
     undoChange,
     resetGame,
+    addPoint,
   };
 
   return (

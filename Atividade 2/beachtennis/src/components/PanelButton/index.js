@@ -2,7 +2,7 @@ import { StyledButton } from "./styles";
 
 const PanelButton = (props) => {
   return (
-    <StyledButton>
+    <StyledButton {...props}>
       <props.icon />
     </StyledButton>
   );
