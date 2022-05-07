@@ -3,7 +3,7 @@ import { createContext, useContext, useState } from "react";
 const MatchContext = createContext();
 
 const MatchProvider = ({ children }) => {
-  const [route, setRoute] = useState(0);
+  const [route, setRoute] = useState(1);
 
   const [activeTeam, setActiveTeam] = useState("1");
   const [matchSets, setMatchSets] = useState("1");

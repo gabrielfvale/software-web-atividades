@@ -1,8 +1,11 @@
+import ControlPanel from "../../components/ControlPanel";
+import PageContainer from "../../components/PageContainer";
+
 const GameMode = () => {
   return (
-    <>
-      <h3>GameMode route</h3>
-    </>
+    <PageContainer>
+      <ControlPanel />
+    </PageContainer>
   );
 };
 
