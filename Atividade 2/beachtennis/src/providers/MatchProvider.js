@@ -147,10 +147,15 @@ const MatchProvider = ({ children }) => {
         // Increment won games and toggle active team
         newGameState[teamGamesWon] += 1;
         toogleActiveTeam();
-        // Reset points
+        // If in supertiebreak, add points to set instead of games won
+        if (isInSuperTieBreak) {
+          newGameState[teamGamesWon] = newGameState[teamPoints];
+          newGameState[advTeamGamesWon] = newGameState[advTeamPoints];
+        }
+        // Add set and reset points
+        addSet();
         newGameState[teamPoints] = 0;
         newGameState[advTeamPoints] = 0;
-        addSet();
       }
     }
 
