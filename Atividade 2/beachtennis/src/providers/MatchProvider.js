@@ -20,7 +20,6 @@ const MatchProvider = ({ children }) => {
     team2_Points: 0,
     team1_Won: 0,
     team2_Won: 0,
-    games: [],
     sets: [],
   };
 
@@ -30,7 +29,15 @@ const MatchProvider = ({ children }) => {
   const setFirstTeam = (first, second) => _setFirstTeam([first, second]);
   const setSecondTeam = (first, second) => _setSecondTeam([first, second]);
 
-  const setGame = (activeTeam, matchSets, firstTeam, secondTeam, stb) => {
+  const setGame = (
+    description,
+    activeTeam,
+    matchSets,
+    firstTeam,
+    secondTeam,
+    stb
+  ) => {
+    setDescription(description);
     setActiveTeam(activeTeam);
     setMatchSets(matchSets);
     setFirstTeam(firstTeam);
@@ -93,20 +100,18 @@ const MatchProvider = ({ children }) => {
       (newGameState.activeTeam = newGameState.activeTeam === "1" ? "2" : "1");
 
     const addSet = () => {
-      newGameState[teamGamesWon] = 0;
-      newGameState[advTeamGamesWon] = 0;
       newGameState.sets.push({
         team1: newGameState.team1_Won,
         team2: newGameState.team2_Won,
       });
+      newGameState[teamGamesWon] = 0;
+      newGameState[advTeamGamesWon] = 0;
       console.log({ sets: newGameState.sets });
     };
 
     const isInTieBreak =
       newGameState[teamGamesWon] === 6 && newGameState[advTeamGamesWon] === 6;
     const isInSuperTieBreak = superTieBreak && newGameState.sets.length === 2;
-
-    console.log({ isInTieBreak, isInSuperTieBreak });
 
     if (!(isInTieBreak || isInSuperTieBreak)) {
       // Normal game logic
