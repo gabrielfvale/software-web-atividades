@@ -33,7 +33,9 @@ const Home = () => {
   };
 
   const onSend = () => {
-    setGame(activeTeam, matchSets, firstTeam, secondTeam, stb);
+    let superTieBreak = stb;
+    if (matchSets === "1") superTieBreak = false;
+    setGame(activeTeam, matchSets, firstTeam, secondTeam, superTieBreak);
     setRoute(1);
   };
 
@@ -60,11 +62,13 @@ const Home = () => {
           onStarClick={() => setActiveTeam("2")}
         />
         <MatchSets activeSet={matchSets} onChangeMatchSets={setMatchSets} />
-        <Checkbox
-          label="SuperTieBreak"
-          checked={stb}
-          onChange={(e) => setSTB(e.target.checked)}
-        />
+        {matchSets === "3" && (
+          <Checkbox
+            label="SuperTieBreak"
+            checked={stb}
+            onChange={(e) => setSTB(e.target.checked)}
+          />
+        )}
 
         <Button text="Iniciar" onClick={onSend} />
       </MainContainer>

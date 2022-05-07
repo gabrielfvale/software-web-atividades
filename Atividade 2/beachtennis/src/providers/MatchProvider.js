@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 const MatchContext = createContext();
 
@@ -12,6 +12,19 @@ const MatchProvider = ({ children }) => {
   const [secondTeam, _setSecondTeam] = useState(["", ""]);
   const [superTieBreak, setSuperTieBreak] = useState(false);
 
+  const initialGameState = {
+    gameStarted: false,
+    timer: 0,
+    activeTeam: 0,
+    team1: 0,
+    team2: 0,
+    games: [{ team1: 0, team2: 0 }],
+    sets: [{ team1: 0, team2: 0 }],
+  };
+
+  const [gameState, setGameState] = useState(initialGameState);
+  const [prevGameState, setPrevGameState] = useState(initialGameState);
+
   const setFirstTeam = (first, second) => _setFirstTeam([first, second]);
   const setSecondTeam = (first, second) => _setSecondTeam([first, second]);
 
@@ -23,6 +36,27 @@ const MatchProvider = ({ children }) => {
     setSuperTieBreak(stb);
   };
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (gameState.gameStarted) {
+        setGameState((prev) => ({
+          ...prev,
+          timer: prev.timer + 1,
+        }));
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const undoChange = () => setGameState(prevGameState);
+
+  const resetGame = () => {
+    setGameState(initialGameState);
+    setPrevGameState(initialGameState);
+  };
+
+  const addPoint = (team) => {};
+
   const values = {
     route,
     description,
@@ -32,6 +66,8 @@ const MatchProvider = ({ children }) => {
     secondTeam,
     superTieBreak,
 
+    gameState,
+
     setRoute,
     setDescription,
     setActiveTeam,
@@ -40,6 +76,9 @@ const MatchProvider = ({ children }) => {
     setSecondTeam,
     setSuperTieBreak,
     setGame,
+
+    undoChange,
+    resetGame,
   };
 
   return (
