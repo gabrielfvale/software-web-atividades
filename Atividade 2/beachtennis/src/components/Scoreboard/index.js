@@ -29,6 +29,8 @@ const Scoreboard = ({ description, matchSets, teams, gameState }) => {
   const amountOfSets = Number(matchSets);
   const activeIndex = activeTeam === "1" ? 0 : 1;
 
+  const onTieBreak = (team1_Won === 6 && team2_Won === 6) || sets.length === 2;
+
   return (
     <MainContainer>
       <GameDetails>
@@ -57,7 +59,9 @@ const Scoreboard = ({ description, matchSets, teams, gameState }) => {
                 </PointColumn>
               ))}
               <PointColumn>
-                <PointBox>{pointMap[points[index]]}</PointBox>
+                <PointBox>
+                  {onTieBreak ? points[index] : pointMap[points[index]]}
+                </PointBox>
               </PointColumn>
             </PointBoxContainer>
           </Row>

@@ -68,7 +68,7 @@ const MatchProvider = ({ children }) => {
   const deepCopy = (obj) => JSON.parse(JSON.stringify(obj));
 
   const addPoint = (team) => {
-    console.log("add point called");
+    console.log("Adding point to", team);
 
     if (
       (matchSets === "1" && gameState.sets.length === 1) ||
@@ -106,7 +106,6 @@ const MatchProvider = ({ children }) => {
       });
       newGameState[teamGamesWon] = 0;
       newGameState[advTeamGamesWon] = 0;
-      console.log({ sets: newGameState.sets });
     };
 
     const isInTieBreak =
