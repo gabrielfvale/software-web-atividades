@@ -1,8 +1,9 @@
-import { FaPlus, FaRedo, FaArrowLeft } from "react-icons/fa";
+import { FaRedo, FaArrowLeft } from "react-icons/fa";
 
 import ControlPanel from "components/ControlPanel";
 import PageContainer from "components/PageContainer";
 import Scoreboard from "components/Scoreboard";
+import Spacer from "components/Spacer";
 
 import { useMatch } from "providers/MatchProvider";
 
@@ -14,20 +15,23 @@ const GameMode = () => {
     addPoint,
     undoChange,
     resetGame,
+
+    description,
+    firstTeam,
+    secondTeam,
   } = useMatch();
 
-  const parseTime = (seconds) =>
-    new Date(seconds * 1000).toISOString().substr(11, 8);
-
-  const pointMap = [0, 15, 30, 40, 60];
+  const TextIcon = ({ text }) => (
+    <span style={{ fontWeight: "bold" }}>{text}</span>
+  );
 
   const controlButtons = [
     {
-      icon: FaPlus,
+      icon: () => <TextIcon text="1+" />,
       onClick: () => addPoint(0),
     },
     {
-      icon: FaPlus,
+      icon: () => <TextIcon text="2+" />,
       onClick: () => addPoint(1),
     },
     {
@@ -47,14 +51,13 @@ const GameMode = () => {
         matchSets={matchSets}
         superTieBreak={superTieBreak}
       />
-      <span>{parseTime(gameState.timer)}</span>
-      <Scoreboard />
-      <p>{gameState.team1_Points}</p>
-      <p>{gameState.team2_Points}</p>
-      <p>Team 1 won: {gameState.team1_Won}</p>
-      <p>Team 2 won: {gameState.team2_Won}</p>
-      <p>Active Team: {gameState.activeTeam}</p>
-      <p>Total sets: {gameState.sets.length}</p>
+      <Spacer />
+      <Scoreboard
+        description={description}
+        matchSets={matchSets}
+        teams={[firstTeam, secondTeam]}
+        gameState={gameState}
+      />
     </PageContainer>
   );
 };

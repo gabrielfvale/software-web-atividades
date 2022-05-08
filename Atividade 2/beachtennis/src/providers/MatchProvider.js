@@ -26,8 +26,8 @@ const MatchProvider = ({ children }) => {
   const [gameState, setGameState] = useState(initialGameState);
   const [prevGameState, setPrevGameState] = useState(initialGameState);
 
-  const setFirstTeam = (first, second) => _setFirstTeam([first, second]);
-  const setSecondTeam = (first, second) => _setSecondTeam([first, second]);
+  const setFirstTeam = (team) => _setFirstTeam([...team]);
+  const setSecondTeam = (team) => _setSecondTeam([...team]);
 
   const setGame = (
     description,

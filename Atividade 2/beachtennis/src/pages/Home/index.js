@@ -35,7 +35,14 @@ const Home = () => {
   const onSend = () => {
     let superTieBreak = stb;
     if (matchSets === "1") superTieBreak = false;
-    setGame(activeTeam, matchSets, firstTeam, secondTeam, superTieBreak);
+    setGame(
+      description,
+      activeTeam,
+      matchSets,
+      firstTeam,
+      secondTeam,
+      superTieBreak
+    );
     setRoute(1);
   };
 
